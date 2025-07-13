@@ -1,12 +1,12 @@
-// /_worker.js (最终完美版 V4：已修复代理重定向的 bug)
+// /_worker.js (最终、完整、正确版)
 
-// --- API 代理部分的配置 (保持不变) ---
+// --- 配置区 ---
 const API_TARGET_DOMAIN = 'maoguxia.com';
 const API_YEARS = [2002, 2003, 2004, 2005, 2006, 2007];
 const API_EXCLUSION_KEYWORDS = [ '/build/', '/cpzs/', '/footer/', '/magazine/', '/member/', '/007/', 'dlgt.htm', 'ciee.htm', 'gd_1.htm', 'gd_2.htm', '/kepu/' ];
 
 /**
- * 辅助类 AttributeRewriter (保持不变)
+ * 辅助类，用于重写 HTML 中的链接，使其指向我们的代理
  */
 class AttributeRewriter {
   constructor(attributeName) { this.attributeName = attributeName; }
@@ -19,14 +19,12 @@ class AttributeRewriter {
 }
 
 /**
- * 处理对单个快照页面的代理请求 (已修复)
+ * 处理对单个快照页面的代理请求 (已修复重定向bug)
  */
 async function handleSnapshotRequest(request) {
   const url = new URL(request.url);
   const waybackPath = url.pathname.substring('/snapshot'.length);
-  
-  // *** 这是唯一的、关键的修复 ***
-  // 在路径前加上了缺失的 /web/，确保构造出正确的最终 URL
+  // 正确地构造最终 URL，包含 /web/
   const targetUrl = `https://web.archive.org/web${waybackPath}`;
 
   const response = await fetch(targetUrl, request);
@@ -45,7 +43,7 @@ async function handleSnapshotRequest(request) {
 }
 
 /**
- * 处理对存档列表 API 的请求 (保持不变)
+ * 处理对存档列表 API 的请求 (包含关键词排除)
  */
 async function handleApiRequest() {
   const promises = API_YEARS.map(year => {
@@ -68,7 +66,7 @@ async function handleApiRequest() {
 }
 
 /**
- * 主入口：路由分发 (保持不变)
+ * 主入口：路由分发 (已修复错误处理)
  */
 export default {
   async fetch(request, env, context) {
@@ -80,9 +78,11 @@ export default {
       if (url.pathname.startsWith('/snapshot/')) {
         return await handleSnapshotRequest(request);
       }
+      // 提供静态文件
       return await env.ASSETS.fetch(request);
     } catch (error) {
       console.error('Worker 发生异常:', error.stack);
+      // 总是返回 JSON 格式的错误
       return new Response(JSON.stringify({ error: `Worker 内部错误: ${error.message}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }

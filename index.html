@@ -1,105 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><!-- META -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="纪念柳文扬">
-    <meta name="keywords"
-        content="mgx, 66, 大柳, 溜问秧文学, 科幻, 柳文扬, 电影, 交通, 纪念, 投稿, 猫骨匣, 匣子">
-    <meta name="author" content="Tanvir Rahman Hridoy"><!-- PAGE TITLE -->
-    <title>猫骨匣 &#8211; 纪念柳文杨</title><!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"><!-- ALL GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <!-- FONT AWESOME CSS -->
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/linear-fonts.css"><!-- OWL CAROSEL CSS -->
-    <link rel="stylesheet" href="assets/owlcarousel/css/owl.carousel.css">
-    <link rel="stylesheet" href="assets/owlcarousel/css/owl.theme.css"><!-- MAGNIFIC CSS -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css"><!-- ANIMATE CSS -->
-    <link rel="stylesheet" href="assets/css/animate.min.css"><!-- MAIN STYLE CSS -->
-    <link rel="stylesheet" href="assets/css/style.css"><!-- RESPONSIVE CSS -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --><!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!--[if lt IE 9]><script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script><script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时光回溯 | 猫骨匣</title>
+    <!-- 我们只加载一个我们自己控制的 CSS 文件 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 加载一个通用的中文字体 -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,700" rel="stylesheet">
 </head>
 <body>
-    <!-- 头部区域 (借用模板，并修改导航链接) -->
-    <header class="welcome-area">
-        <div class="header-top-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="logo"><a href="https://maoguxia.com.cn">猫骨匣</a></div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="mainmenu">
-                            <div class="navbar navbar-nobg">
-                                <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
-                                <div class="navbar-collapse collapse">
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <!-- 导航菜单修改 -->
-                                        <li><a href="https://maoguxia.com.cn">Home</a></li>
-                                        <li><a href="https://maoguxia.com.cn/#about">柳文扬简介</a></li>
-                                        <li><a href="https://maoguxia.com.cn/home">LWY’s Home</a></li>
-                                        <li><a class="smoth-scroll" href="https://maoguxia.com.cn/mgx">猫骨匣论坛</a></li>
-                                        <li class="active"><a href="#">历史上的猫骨匣<div class="ripple-wrapper"></div></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+    <!-- 1. 页头结构 -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo"><a href="https://maoguxia.com.cn">猫骨匣</a></div>
+            <nav class="main-menu">
+                <a href="https://maoguxia.com.cn">Home</a>
+                <a href="https://maoguxia.com.cn/#about">柳文扬简介</a>
+                <a href="https://maoguxia.com.cn/home">LWY’s Home</a>
+                <a href="#" class="active">时光回溯</a>
+            </nav>
         </div>
     </header>
 
-    <!-- *** 这是我们的核心内容区 *** -->
-    <section id="archive-content" class="archive-area section-padding">
+    <!-- 2. 我们的核心内容区 -->
+    <main class="main-content">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h1 class="archive-title wow fadeInUp" data-wow-delay="0.4s">历史上的猫骨匣</h1>
-                    <h2 class="subtitle wow fadeInUp" data-wow-delay="0.6s">猫骨匣 (maoguxia.com) | 2002 - 2007</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div id="loading">正在通过云端挖掘记忆... (首次加载可能需要一些时间)</div>
-                    <ul id="archive-list"></ul>
-                    <div id="pagination-controls"></div>
-                </div>
-            </div>
+            <h1 class="archive-title">时光·回溯</h1>
+            <h2 class="subtitle">猫骨匣 (maoguxia.com) | 2002 - 2007 详细存档</h2>
+            <div id="loading">正在通过云端挖掘记忆...</div>
+            <ul id="archive-list"></ul>
+            <div id="pagination-controls"></div>
         </div>
-    </section>
+    </main>
 
-    <!-- 页脚区域 (借用模板) -->
-    <footer class="footer-area">
+    <!-- 3. 页脚结构 -->
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6 wow fadeInUp" data-wow-delay="1s">
-                    <p>© 2024 猫骨匣 | Archive data supported by Wayback Machine & Cloudflare</p>
-                </div>
-                <div class="col-sm-6 wow fadeInUp" data-wow-delay="1s">
-                    <div class="footer-social-link">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook fb"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter tw"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+            <p>© 2024 猫骨匣 | Archive data supported by Wayback Machine & Cloudflare</p>
+            <div class="footer-social">
+                <a href="#">f</a>
+                <a href="#">t</a>
             </div>
         </div>
     </footer>
 
-    <!-- 加载所有模板的 JS  -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/wow.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
-
-    <!-- *** 这是新增的、我们自己的JS文件，放在最后 *** -->
-    <script src="assets/js/archive-logic.js"></script>
-
+    <!-- 我们只加载一个我们自己控制的 JS 文件 -->
+    <script src="script.js"></script>
 </body>
 </html>
