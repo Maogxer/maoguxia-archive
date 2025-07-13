@@ -52,13 +52,21 @@ h1.title-glow {
     font-size: 1.1rem;
 }
 
-#archive-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s, transform 1s;
+#archive-list a {
+    display: block; /* 改为块级元素，以便控制宽度和溢出 */
+    padding: 10px 15px; /* 增加内边距，方便点击 */
+    color: #aaa;
+    text-decoration: none;
+    font-size: 1.1rem;
+    background-color: #222;
+    border-radius: 4px;
+    transition: color 0.3s, background-color 0.3s;
+    
+    /* 以下是处理长链接的关键样式 */
+    white-space: nowrap;      /* 强制文本在一行内显示 */
+    overflow: hidden;         /* 隐藏超出部分 */
+    text-overflow: ellipsis;  /* 对隐藏的部分显示省略号 */
+    text-align: left;         /* 左对齐，更易读 */
 }
 
 #archive-list.loaded {
@@ -82,7 +90,7 @@ h1.title-glow {
 
 #archive-list a:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #333;
 }
 
 footer {

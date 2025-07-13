@@ -1,11 +1,11 @@
-// /script.js (最终版：显示详细时间)
+// /script.js (最终版：显示链接和详细时间)
 
 document.addEventListener('DOMContentLoaded', () => {
     const loadingDiv = document.getElementById('loading');
     const archiveList = document.getElementById('archive-list');
     const paginationControls = document.getElementById('pagination-controls');
 
-    const RECORDS_PER_PAGE = 20; // 您可以根据喜好调整每页显示的条数
+    const RECORDS_PER_PAGE = 20;
     let currentPage = 1;
     let allRecords = [];
 
@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pageRecords.forEach(snapshot => {
             const [timestamp, originalUrl] = snapshot;
             
-            // *** 关键改动：格式化完整的时间戳 ***
             const year = timestamp.substring(0, 4);
             const month = timestamp.substring(4, 6);
             const day = timestamp.substring(6, 8);
@@ -64,8 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
             link.href = cleanUrl;
-            // 更新显示的文本内容
-            link.textContent = `快照于 ${formattedDate}`;
+            
+            // *** 这是唯一的、关键的改动 ***
+            // 组合 URL 和格式化的日期作为链接文本
+            link.textContent = `${originalUrl} (快照于 ${formattedDate})`;
+
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
             listItem.appendChild(link);
@@ -77,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePaginationButtons();
     }
 
+    // setupPagination 和 updatePaginationButtons 函数保持不变...
     function setupPagination() {
         paginationControls.innerHTML = '';
         const pageCount = Math.ceil(allRecords.length / RECORDS_PER_PAGE);
@@ -91,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         paginationControls.appendChild(prevButton);
 
-        // 为了避免页码过多，这里只显示当前页和总页数的信息
         const pageInfo = document.createElement('span');
         pageInfo.classList.add('page-btn');
         pageInfo.style.cursor = 'default';
