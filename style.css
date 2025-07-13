@@ -135,3 +135,26 @@ footer {
     cursor: not-allowed;
     opacity: 0.5;
 }
+
+/* 让页码文本看起来像个按钮，可点击 */
+.page-info {
+    cursor: pointer;
+}
+
+/* 页码输入框的样式 */
+.page-input {
+    width: 60px; /* 控制输入框宽度 */
+    padding: 8px 0;
+    text-align: center;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #e0e0e0;
+    border-radius: 4px;
+    font-family: 'Noto Serif SC', serif; /* 保持字体一致 */
+    font-size: 1em;
+}
+
+/* 隐藏元素的通用类 */
+.hidden {
+    display: none;
+}
