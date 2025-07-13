@@ -1,0 +1,95 @@
+/* archive-custom.css */
+
+/* 移除模板为 header 设置的巨大欢迎区高度 */
+.welcome-area {
+    height: auto !important;
+}
+.header-top-area {
+    position: relative !important;
+    background-color: #222; /* 给头部一个背景色 */
+}
+
+/* 存档内容区的样式 */
+.archive-area {
+    background-color: #222;
+    color: #ccc;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.archive-title {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.subtitle {
+    font-size: 1.2em;
+    color: #888;
+    margin-bottom: 50px;
+}
+#loading {
+    font-size: 1.2em;
+    color: #888;
+    text-align: center;
+}
+#archive-list {
+    list-style: none;
+    padding: 0;
+}
+#archive-list li {
+    margin-bottom: 10px;
+}
+#archive-list a {
+    display: block;
+    padding: 12px 20px;
+    background-color: #2a2a2a;
+    border-left: 3px solid #444;
+    color: #999;
+    text-decoration: none !important;
+    transition: all 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+}
+#archive-list a:hover {
+    background-color: #333;
+    border-left-color: #f00;
+    color: #fff;
+}
+
+/* 分页控件样式 */
+#pagination-controls {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.page-btn {
+    background-color: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+.page-btn:hover {
+    background-color: #333;
+    color: #eee;
+    border-color: #555;
+}
+.page-info { cursor: pointer; }
+.page-input {
+    width: 60px;
+    padding: 8px 0;
+    text-align: center;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #e0e0e0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+}
+.hidden { display: none; }
