@@ -1,5 +1,4 @@
 body { background-color: transparent !important; color: #ccc; font-family: 'Noto Serif SC', serif; margin: 0; font-size: 16px; }
-.container { max-width: 100%; margin: 0; padding: 0; }
 .main-content { text-align: center; padding: 20px 0; }
 .archive-title { font-size: 3em; font-weight: 900; margin: 20px 0 10px; color: #fff; }
 .subtitle { color: #888; font-weight: 400; margin-bottom: 40px; }
@@ -14,5 +13,3 @@ body { background-color: transparent !important; color: #ccc; font-family: 'Noto
 .page-info { cursor: pointer; }
 .page-input { width: 60px; padding: 8px 0; text-align: center; background-color: #333; border: 1px solid #555; color: #e0e0e0; border-radius: 4px; font-family: 'Noto Serif SC', serif; font-size: 1em; }
 .hidden { display: none; }
-.site-footer { margin-top: 60px; text-align: center; color: #444; font-size: 0.8em; }
-.site-footer p { margin: 5px 0; }
