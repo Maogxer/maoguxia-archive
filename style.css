@@ -76,6 +76,7 @@ h1.title-glow {
 
 #archive-list li {
     margin-bottom: 12px;
+    text-align: left; /* <-- 这是最关键的修复，覆盖继承的居中样式 */
 }
 
 #archive-list a {
