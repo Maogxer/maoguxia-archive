@@ -21,19 +21,29 @@ header {
     margin-bottom: 60px;
 }
 
-/* 
-  最终确认的标题样式：
-  - 移除了 ::before 伪元素
-  - 移除了 animation 属性
-  - 移除了 -webkit-box-reflect 倒影
-  - 直接设置了最终颜色
-*/
+/* --- 这是您想要的 H1 样式，无动画版 --- */
 h1.title-glow {
     font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 900;
-    color: #f5a623; /* 静态的、无动画的颜色 */
+    color: #ffffff; /* 基础文字为白色 */
     margin: 0;
+    position: relative; /* 必须设置，为伪元素定位提供基准 */
     letter-spacing: 0.1em;
+    /* 恢复下方的倒影效果 */
+    -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(255,255,255,0.1));
+}
+
+/* 这个伪元素用来在白色文字上叠加一层静态的光泽和阴影 */
+h1.title-glow::before {
+    content: '历史上的猫骨匣'; /* 必须和 H1 内容一致 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #f5a623; /* 光泽的颜色 */
+    filter: drop-shadow(0 0 15px #f5a623); /* 营造光晕效果 */
+    /* 注意：这里没有 animation 和 clip-path 属性，所以效果是静态的 */
 }
 
 .subtitle {
@@ -43,6 +53,8 @@ h1.title-glow {
     margin-top: 20px;
     letter-spacing: 0.1em;
 }
+
+/* ... 后面的所有样式保持不变 ... */
 
 #loading {
     color: #666;
