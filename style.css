@@ -21,38 +21,20 @@ header {
     margin-bottom: 60px;
 }
 
+/* 
+  最终确认的标题样式：
+  - 移除了 ::before 伪元素
+  - 移除了 animation 属性
+  - 移除了 -webkit-box-reflect 倒影
+  - 直接设置了最终颜色
+*/
 h1.title-glow {
-    font-size: clamp(3rem, 10vw, 6rem); /* 响应式字体大小 */
+    font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 900;
-    color: #ffffff;
+    color: #f5a623; /* 静态的、无动画的颜色 */
     margin: 0;
-    position: relative;
     letter-spacing: 0.1em;
-    -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(255,255,255,0.1));
 }
-
-/* 标题光泽扫描动画 */
-h1.title-glow::before {
-    content: '历史上的猫骨匣';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #f5a623; /* 光泽颜色 */
-    filter: drop-shadow(0 0 15px #f5a623);
-    animation: glow-scan 5s linear infinite;
-}
-
-@keyframes glow-scan {
-    0%, 100% {
-        clip-path: polygon(0% 45%, 0% 45%, 0% 55%, 0% 55%);
-    }
-    50% {
-        clip-path: polygon(0% 45%, 100% 45%, 100% 55%, 0% 55%);
-    }
-}
-
 
 .subtitle {
     font-size: 1.2rem;
@@ -105,8 +87,6 @@ footer {
     color: #444;
     font-size: 0.9rem;
 }
-
-/* ... 原有样式保持不变 ... */
 
 #pagination-controls {
     margin-top: 40px;
