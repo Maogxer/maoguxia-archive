@@ -1,10 +1,10 @@
-/* style.css (最终版：已恢复 H1 倒影样式) */
+/* style.css (最终版：已实现固定页头) */
 
 /* 基础样式 */
 body {
     background-color: #1a1a1a;
     color: #ccc;
-    font-family: 'Noto Serif SC', sans-serif;
+    font-family: 'Noto Serif SC', sans-serif; /* 保持内容字体 */
     margin: 0;
     line-height: 1.6;
 }
@@ -16,35 +16,57 @@ body {
 a { color: #888; text-decoration: none; transition: color 0.3s; }
 a:hover { color: #fff; }
 
-/* 页头样式 */
+/* 
+ * 这是最核心的改动：固定页头
+*/
 .site-header {
-    padding: 20px 0;
-    border-bottom: 1px solid #333;
+    /* 1. 固定位置 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* 确保它在最上层 */
+    
+    /* 2. 外观样式 */
+    background-color: #000; /* 纯黑色背景 */
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 加一个细微的阴影，更有质感 */
 }
 .site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.logo { font-size: 1.5em; font-weight: 700; }
+.logo { font-size: 1.5em; font-weight: 700; font-family: 'Montserrat', sans-serif; }
 .logo a { color: #fff; }
-.main-menu { display: flex; gap: 25px; }
-.main-menu a.active { color: #fff; font-weight: 700; }
 
-/* 主要内容区样式 */
-.main-content { padding: 50px 0; }
+.main-menu { display: flex; gap: 30px; }
+.main-menu a {
+    font-family: 'Montserrat', sans-serif; /* 使用和主站一致的无衬线字体 */
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase; /* 字母大写，更具设计感 */
+    letter-spacing: 1px;
+}
+.main-menu a.active { color: #fff; }
+
 
 /* 
- * 这是唯一的、关键的修复：
- * 恢复您喜欢的带有倒影的 H1 样式
+ * 关键的第二步：为固定的头部留出空间 
+ * 防止主要内容被遮挡
 */
+.main-content {
+    padding-top: 120px; /* 这个值约等于页头高度 + 额外留白 */
+    padding-bottom: 50px;
+}
+
 .archive-title {
-    font-size: 4.5em; /* 一个宏大的字体大小 */
+    font-size: 4.5em;
     font-weight: 700;
     text-align: center;
     color: #fff;
     letter-spacing: 0.1em;
-    margin-bottom: 60px; /* 增加下边距，给倒影留出空间 */
+    margin-bottom: 60px;
     -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
 }
 
@@ -59,6 +81,7 @@ a:hover { color: #fff; }
     border-left: 3px solid #444; color: #999; text-decoration: none !important;
     transition: all 0.3s; white-space: nowrap; overflow: hidden;
     text-overflow: ellipsis; text-align: left;
+    font-family: 'Roboto', sans-serif; /* 为列表链接使用另一个清晰的字体 */
 }
 #archive-list a:hover { background-color: #333; border-left-color: #aaa; color: #fff; }
 #pagination-controls { margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 8px; }
@@ -68,7 +91,7 @@ a:hover { color: #fff; }
 .page-input { width: 60px; padding: 8px 0; text-align: center; background-color: #333; border: 1px solid #555; color: #e0e0e0; }
 .hidden { display: none; }
 
-/* 页脚样式 */
+/* 页脚样式 (保持不变) */
 .site-footer {
     padding: 30px 0;
     border-top: 1px solid #333;
