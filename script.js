@@ -123,43 +123,29 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- 以下是新增的代码，请添加到文件末尾 ---
 
 /**
- * 向父窗口发送当前页面的高度
+ * 向父窗口（主站）发送当前页面的高度
  */
-function postHeightMessage() {
-    const height = document.body.scrollHeight;
-    // 使用 postMessage 与父窗口通信，* 表示允许任何来源的父窗口接收，更安全的做法是指定主站域名
-    // 但对于这个项目，* 是可以接受的
-    parent.postMessage({ type: 'resize', height: height }, '*');
+function postHeight() {
+    // 使用 document.documentElement.scrollHeight 获取最准确的页面总高度
+    const height = document.documentElement.scrollHeight;
+    
+    // 使用 postMessage 与父窗口通信，第二个参数指定了只允许哪个源的父窗口接收
+    // 这是最安全的做法
+    parent.postMessage({ type: 'resize-iframe', height: height }, 'https://maoguxia.com.cn');
 }
 
-// 在页面加载和渲染后，发送一次高度
-// 我们在 renderPage 函数的末尾调用它，以确保内容已渲染
-function renderPage(page) {
-    // ... renderPage 函数的开头部分保持不变 ...
-    currentPage = page;
-    archiveList.innerHTML = '';
-    const startIndex = (page - 1) * RECORDS_PER_PAGE;
-    const endIndex = startIndex + RECORDS_PER_PAGE;
-    const pageRecords = allRecords.slice(startIndex, endIndex);
-    pageRecords.forEach(snapshot => {
-        const [timestamp, originalUrl] = snapshot;
-        const formattedDate = `${timestamp.substring(0, 4)}-${timestamp.substring(4, 6)}-${timestamp.substring(6, 8)} ${timestamp.substring(8, 10)}:${timestamp.substring(10, 12)}:${timestamp.substring(12, 14)}`;
-        const proxiedUrl = `/snapshot/${timestamp}id_/${originalUrl}`;
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = proxiedUrl;
-        link.textContent = `${originalUrl} (快照于 ${formattedDate})`;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        listItem.appendChild(link);
-        archiveList.appendChild(listItem);
-    });
-    updatePaginationButtons();
+// 覆盖 renderPage 和 setupPagination，在它们执行完后汇报高度
+const originalRenderPage = renderPage;
+renderPage = function(page) {
+    originalRenderPage(page);
+    setTimeout(postHeight, 150); // 渲染后稍作延迟再汇报，确保万无一失
+};
 
-    // *** 新增调用 ***
-    // 在内容渲染完成后，延迟一小会儿发送高度，确保万无一失
-    setTimeout(postHeightMessage, 100); 
-}
+const originalSetupPagination = setupPagination;
+setupPagination = function() {
+    originalSetupPagination();
+    setTimeout(postHeight, 150);
+};
 
 // 当窗口大小改变时，也重新发送高度
-window.addEventListener('resize', postHeightMessage);
+window.addEventListener('resize', postHeight);

@@ -1,161 +1,35 @@
+/* archive-site/style.css (无缝嵌入版) */
+
+/* 关键！让 body 背景透明，以便透出主站的背景 */
 body {
-    background-color: transparent; /* 关键！背景设为透明 */
-    color: #e0e0e0;
+    background-color: transparent !important;
+    color: #ccc; /* 调整默认文字颜色以适应深色背景 */
     font-family: 'Noto Serif SC', serif;
     margin: 0;
     font-size: 16px;
 }
 
-/* 移除容器的内外边距，让它完全贴合 iframe */
+/* 移除容器的外边距和内边距，使其完全贴合 iframe */
 .site-container {
     max-width: 100%;
     margin: 0;
-    padding: 20px 0; /* 只保留上下一点内边距 */
+    padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    width: 100%;
-}
-
-header {
-    margin-bottom: 60px;
-}
-
-/* 
-  这是您最初喜欢的样式，仅移除了动画部分：
-  - 基础文字是白色
-  - 保留了下方的倒影效果
-  - 没有任何 ::before 伪元素，因此没有黄色，也没有动画
-*/
-h1.title-glow {
-    font-size: clamp(3rem, 10vw, 6rem);
-    font-weight: 900;
-    color: #ffffff; /* 恢复为纯白色 */
-    margin: 0;
-    letter-spacing: 0.1em;
-    /* 保留您喜欢的倒影效果 */
-    -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(255,255,255,0.1));
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    color: #888;
-    font-weight: 400;
-    margin-top: 20px;
-    letter-spacing: 0.1em;
-}
-
-/* ... 后面的所有样式都与之前完全相同，无需改动 ... */
-
-#loading {
-    color: #666;
-    font-size: 1.1rem;
-}
-
-#archive-list a {
-    display: block; /* 改为块级元素，以便控制宽度和溢出 */
-    padding: 10px 15px; /* 增加内边距，方便点击 */
-    color: #aaa;
-    text-decoration: none;
-    font-size: 1.1rem;
-    background-color: #222;
-    border-radius: 4px;
-    transition: color 0.3s, background-color 0.3s;
-    
-    /* 以下是处理长链接的关键样式 */
-    white-space: nowrap;      /* 强制文本在一行内显示 */
-    overflow: hidden;         /* 隐藏超出部分 */
-    text-overflow: ellipsis;  /* 对隐藏的部分显示省略号 */
-    text-align: left;         /* 左对齐，更易读 */
-}
-
-#archive-list.loaded {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#archive-list li {
-    margin-bottom: 12px;
-    text-align: left; /* <-- 这是最关键的修复，覆盖继承的居中样式 */
-}
-
-#archive-list a {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 5px 10px;
-    transition: color 0.3s, background-color 0.3s;
-    border-radius: 4px;
-    display: inline-block;
-}
-
-#archive-list a:hover {
-    color: #ffffff;
-    background-color: #333;
-}
-
-footer {
-    margin-top: 80px;
-    color: #444;
-    font-size: 0.9rem;
-}
-
-#pagination-controls {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.page-btn {
-    background-color: transparent;
-    border: 1px solid #444;
-    color: #888;
-    padding: 8px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.page-btn:hover {
-    background-color: #333;
-    color: #eee;
-}
-
-.page-btn.active {
-    background-color: #555;
-    color: #ffffff;
-    border-color: #555;
-    font-weight: bold;
-}
-
-.page-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-/* 让页码文本看起来像个按钮，可点击 */
-.page-info {
-    cursor: pointer;
-}
-
-/* 页码输入框的样式 */
-.page-input {
-    width: 60px; /* 控制输入框宽度 */
-    padding: 8px 0;
-    text-align: center;
-    background-color: #333;
-    border: 1px solid #555;
-    color: #e0e0e0;
-    border-radius: 4px;
-    font-family: 'Noto Serif SC', serif; /* 保持字体一致 */
-    font-size: 1em;
-}
-
-/* 隐藏元素的通用类 */
-.hidden {
-    display: none;
-}
+/* ... 以下所有其他样式都与您之前的最终版相同 ... */
+.main-content { text-align: center; padding: 20px 0; }
+.archive-title { font-size: 3em; font-weight: 900; margin: 20px 0 10px; color: #fff; }
+.subtitle { color: #888; font-weight: 400; margin-bottom: 40px; }
+#loading { color: #666; font-size: 1.1rem; }
+#archive-list { list-style: none; padding: 0; margin-top: 20px; }
+#archive-list li { margin-bottom: 12px; text-align: left; }
+#archive-list a { display: block; padding: 10px 15px; color: #aaa; text-decoration: none !important; font-size: 1.1rem; background-color: #2a2a2a; border-radius: 4px; transition: color 0.3s, background-color 0.3s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#archive-list a:hover { color: #ffffff; background-color: #333; }
+#pagination-controls { margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+.page-btn { background-color: transparent; border: 1px solid #444; color: #888; padding: 8px 14px; border-radius: 4px; cursor: pointer; transition: all 0.3s; }
+.page-btn:hover { background-color: #333; color: #eee; }
+.page-info { cursor: pointer; }
+.page-input { width: 60px; padding: 8px 0; text-align: center; background-color: #333; border: 1px solid #555; color: #e0e0e0; border-radius: 4px; font-family: 'Noto Serif SC', serif; font-size: 1em; }
+.hidden { display: none; }
+.site-footer { margin-top: 60px; text-align: center; color: #444; font-size: 0.8em; }
+.site-footer p { margin: 5px 0; }
