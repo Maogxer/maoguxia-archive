@@ -15,8 +15,8 @@
     color: #fff;
     letter-spacing: 0.1em;
     margin-top: 20px;
-    margin-bottom: 75px; /* 增加下边距，为倒影留出足够的空间 */
-    -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+    margin-bottom: 80px; /* 增加下边距，为倒影留出足够的空间 */
+    -webkit-box-reflect: below -5px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
 }
 
 /* 步骤 2: 调整副标题的位置，让它与倒影的间距更和谐 */
