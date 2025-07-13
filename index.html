@@ -1,121 +1,33 @@
-body {
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: 'Noto Serif SC', serif;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    text-align: center;
-}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史上的猫骨匣</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
 
-.container {
-    max-width: 800px;
-    width: 100%;
-}
+    <div class="container">
+        <header>
+            <h1 class="title-glow">历史上的猫骨匣</h1>
+            <h2 class="subtitle">猫骨匣 (maoguxia.com) | 2002 - 2007 存档</h2>
+        </header>
+        
+        <main>
+            <div id="loading">正在通过云端挖掘记忆... (首次加载可能需要一些时间)</div>
+            <ul id="archive-list"></ul>
+            <div id="pagination-controls"></div>
+        </main>
 
-header {
-    margin-bottom: 60px;
-}
-
-/* --- 这里是主要改动 --- */
-/* 简化了标题样式，移除了动画、倒影和伪元素 */
-h1.title-glow {
-    font-size: clamp(3rem, 10vw, 6rem);
-    font-weight: 900;
-    color: #f5a623; /* 直接使用醒目的颜色 */
-    margin: 0;
-    letter-spacing: 0.1em;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    color: #888;
-    font-weight: 400;
-    margin-top: 20px;
-    letter-spacing: 0.1em;
-}
-
-#loading {
-    color: #666;
-    font-size: 1.1rem;
-}
-
-#archive-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s, transform 1s;
-}
-
-#archive-list.loaded {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#archive-list li {
-    margin-bottom: 12px;
-}
-
-#archive-list a {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 5px 10px;
-    transition: color 0.3s, background-color 0.3s;
-    border-radius: 4px;
-    display: inline-block;
-}
-
-#archive-list a:hover {
-    color: #ffffff;
-    background-color: rgba(245, 166, 35, 0.1);
-}
-
-footer {
-    margin-top: 80px;
-    color: #444;
-    font-size: 0.9rem;
-}
-
-/* --- 分页样式保持不变 --- */
-#pagination-controls {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.page-btn {
-    background-color: transparent;
-    border: 1px solid #444;
-    color: #888;
-    padding: 8px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.page-btn:hover {
-    background-color: #333;
-    color: #eee;
-}
-
-.page-btn.active {
-    background-color: #f5a623;
-    color: #121212;
-    border-color: #f5a623;
-    font-weight: bold;
-}
-
-.page-btn:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
+        <footer>
+            <p>由 Cloudflare & Wayback Machine 提供支持</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
