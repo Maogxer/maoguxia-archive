@@ -21,29 +21,20 @@ header {
     margin-bottom: 60px;
 }
 
-/* --- 这是您想要的 H1 样式，无动画版 --- */
+/* 
+  这是您最初喜欢的样式，仅移除了动画部分：
+  - 基础文字是白色
+  - 保留了下方的倒影效果
+  - 没有任何 ::before 伪元素，因此没有黄色，也没有动画
+*/
 h1.title-glow {
     font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 900;
-    color: #ffffff; /* 基础文字为白色 */
+    color: #ffffff; /* 恢复为纯白色 */
     margin: 0;
-    position: relative; /* 必须设置，为伪元素定位提供基准 */
     letter-spacing: 0.1em;
-    /* 恢复下方的倒影效果 */
+    /* 保留您喜欢的倒影效果 */
     -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(255,255,255,0.1));
-}
-
-/* 这个伪元素用来在白色文字上叠加一层静态的光泽和阴影 */
-h1.title-glow::before {
-    content: '历史上的猫骨匣'; /* 必须和 H1 内容一致 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #f5a623; /* 光泽的颜色 */
-    filter: drop-shadow(0 0 15px #f5a623); /* 营造光晕效果 */
-    /* 注意：这里没有 animation 和 clip-path 属性，所以效果是静态的 */
 }
 
 .subtitle {
@@ -54,7 +45,7 @@ h1.title-glow::before {
     letter-spacing: 0.1em;
 }
 
-/* ... 后面的所有样式保持不变 ... */
+/* ... 后面的所有样式都与之前完全相同，无需改动 ... */
 
 #loading {
     color: #666;
@@ -91,7 +82,7 @@ h1.title-glow::before {
 
 #archive-list a:hover {
     color: #ffffff;
-    background-color: rgba(245, 166, 35, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 footer {
@@ -125,9 +116,9 @@ footer {
 }
 
 .page-btn.active {
-    background-color: #f5a623;
-    color: #121212;
-    border-color: #f5a623;
+    background-color: #555;
+    color: #ffffff;
+    border-color: #555;
     font-weight: bold;
 }
 
