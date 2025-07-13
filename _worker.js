@@ -1,40 +1,40 @@
-// /_worker.js (已修复 context.next 错误)
+// /_worker.js (最终版：获取所有详细记录，无 collapse)
 
-// --- 在这里修改你要查询的网站 ---
+// --- 配置区 ---
 const TARGET_DOMAIN = 'maoguxia.com';
-// -----------------------------------
+const YEARS = [2002, 2003, 2004, 2005, 2006, 2007];
+// ----------------
 
-async function handleApiRequest(request) {
-  const apiUrl = `https://web.archive.org/cdx/search/cdx?url=${TARGET_DOMAIN}/*&from=2002&to=2007&output=json&fl=timestamp,original&collapse=timestamp:8&filter=statuscode:200`;
+async function handleApiRequest() {
+  const promises = YEARS.map(year => {
+    // *** 关键改动：确认 URL 中没有 &collapse=... 参数 ***
+    const apiUrl = `https://web.archive.org/cdx/search/cdx?url=${TARGET_DOMAIN}/*&from=${year}&to=${year}&output=json&fl=timestamp,original&filter=statuscode:200`;
+    return fetch(apiUrl, { headers: { 'User-Agent': 'Cloudflare-Worker-Proxy/1.0' } });
+  });
 
   try {
-    const response = await fetch(apiUrl, {
-      headers: { 'User-Agent': 'Cloudflare-Worker-Proxy/1.0' },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Wayback Machine API 请求失败，状态码: ${response.status}`);
+    const responses = await Promise.all(promises);
+    for (const response of responses) {
+      if (!response.ok) {
+        throw new Error(`其中一个年份的 API 请求失败，状态码: ${response.status}`);
+      }
     }
-
-    const responseText = await response.text();
+    const yearlyData = await Promise.all(responses.map(res => res.json()));
+    const header = yearlyData.find(data => data.length > 0)?.[0] || ["timestamp", "original"];
+    const allRecords = yearlyData.flatMap(data => (data.length > 1 ? data.slice(1) : []));
     
-    // 验证是否为有效的 JSON
-    try {
-      JSON.parse(responseText);
-    } catch (e) {
-      console.error("从 Wayback Machine 收到了非 JSON 格式的响应:", responseText);
-      throw new Error("从 Wayback Machine 收到了无效的数据格式。");
-    }
-
-    return new Response(responseText, {
+    // 按时间戳升序排序所有记录
+    allRecords.sort((a, b) => a[0].localeCompare(b[0]));
+    
+    const finalJson = [header, ...allRecords];
+    return new Response(JSON.stringify(finalJson), {
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 's-maxage=86400', // 缓存一天
+        'Cache-Control': 's-maxage=86400',
       },
     });
   } catch (error) {
-     // 如果 fetch 或解析失败，向上抛出错误，由外层捕获
-     throw new Error(`处理 API 请求时出错: ${error.message}`);
+    throw new Error(`处理并行 API 请求时出错: ${error.message}`);
   }
 }
 
@@ -42,19 +42,11 @@ export default {
   async fetch(request, env, context) {
     try {
       const url = new URL(request.url);
-
-      // 路由：如果请求路径是 /api/records，则执行我们的 API 代理逻辑
       if (url.pathname === '/api/records') {
         return await handleApiRequest(request);
       }
-
-      // *** 这是关键的修复 ***
-      // 对于所有其他请求，使用 env.ASSETS.fetch 来获取静态文件
-      // 这会返回 index.html, style.css, script.js 等
       return await env.ASSETS.fetch(request);
-
     } catch (error) {
-      // 全局捕获，如果 handleApiRequest 或其他地方抛出错误，在这里处理
       console.error('Worker 发生异常:', error.stack);
       return new Response(JSON.stringify({ error: `Worker 内部错误: ${error.message}` }), {
         status: 500,
