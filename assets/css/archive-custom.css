@@ -1,5 +1,14 @@
 /* archive-custom.css */
 
+/* 
+ * 这是唯一的、关键的修复：
+ * 强制隐藏模板的预加载动画层，让我们的内容能立刻显示出来。
+ * 使用 !important 确保它的优先级最高，能够覆盖模板原有的样式。
+*/
+.preloader-area {
+    display: none !important;
+}
+
 /* 移除模板为 header 设置的巨大欢迎区高度 */
 .welcome-area {
     height: auto !important;
