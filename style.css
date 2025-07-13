@@ -1,4 +1,4 @@
-/* style.css (干净、稳定版) */
+/* style.css (最终版：已恢复 H1 倒影样式) */
 
 /* 基础样式 */
 body {
@@ -33,11 +33,25 @@ a:hover { color: #fff; }
 
 /* 主要内容区样式 */
 .main-content { padding: 50px 0; }
-.archive-title { font-size: 3em; text-align: center; margin-bottom: 10px; color: #fff; }
-.subtitle { font-size: 1.2em; text-align: center; color: #888; margin-bottom: 50px; }
+
+/* 
+ * 这是唯一的、关键的修复：
+ * 恢复您喜欢的带有倒影的 H1 样式
+*/
+.archive-title {
+    font-size: 4.5em; /* 一个宏大的字体大小 */
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    letter-spacing: 0.1em;
+    margin-bottom: 60px; /* 增加下边距，给倒影留出空间 */
+    -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+}
+
+.subtitle { font-size: 1.2em; text-align: center; color: #888; margin-top: -40px; margin-bottom: 50px; }
 #loading { text-align: center; padding: 40px; }
 
-/* 列表和分页样式 (我们原有的可靠样式) */
+/* 列表和分页样式 (保持不变) */
 #archive-list { list-style: none; padding: 0; }
 #archive-list li { margin-bottom: 10px; }
 #archive-list a {
