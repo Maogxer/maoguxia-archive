@@ -1,8 +1,5 @@
 /* archive-custom.css (最终版：已恢复 H1 倒影样式) */
 
-/* 修复模板冲突的关键部分 */
-.welcome-area { height: auto !important; }
-.header-top-area { position: relative !important; background-color: #222 !important; }
 
 /* 
  * ---------------------------------------------------
@@ -18,7 +15,7 @@
     color: #fff;
     letter-spacing: 0.1em;
     margin-top: 20px;
-    margin-bottom: 70px; /* 增加下边距，为倒影留出足够的空间 */
+    margin-bottom: 75px; /* 增加下边距，为倒影留出足够的空间 */
     -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
 }
 
