@@ -119,3 +119,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchAllArchives();
 });
+
+// --- 以下是新增的代码，请添加到文件末尾 ---
+
+/**
+ * 向父窗口发送当前页面的高度
+ */
+function postHeightMessage() {
+    const height = document.body.scrollHeight;
+    // 使用 postMessage 与父窗口通信，* 表示允许任何来源的父窗口接收，更安全的做法是指定主站域名
+    // 但对于这个项目，* 是可以接受的
+    parent.postMessage({ type: 'resize', height: height }, '*');
+}
+
+// 在页面加载和渲染后，发送一次高度
+// 我们在 renderPage 函数的末尾调用它，以确保内容已渲染
+function renderPage(page) {
+    // ... renderPage 函数的开头部分保持不变 ...
+    currentPage = page;
+    archiveList.innerHTML = '';
+    const startIndex = (page - 1) * RECORDS_PER_PAGE;
+    const endIndex = startIndex + RECORDS_PER_PAGE;
+    const pageRecords = allRecords.slice(startIndex, endIndex);
+    pageRecords.forEach(snapshot => {
+        const [timestamp, originalUrl] = snapshot;
+        const formattedDate = `${timestamp.substring(0, 4)}-${timestamp.substring(4, 6)}-${timestamp.substring(6, 8)} ${timestamp.substring(8, 10)}:${timestamp.substring(10, 12)}:${timestamp.substring(12, 14)}`;
+        const proxiedUrl = `/snapshot/${timestamp}id_/${originalUrl}`;
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = proxiedUrl;
+        link.textContent = `${originalUrl} (快照于 ${formattedDate})`;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        listItem.appendChild(link);
+        archiveList.appendChild(listItem);
+    });
+    updatePaginationButtons();
+
+    // *** 新增调用 ***
+    // 在内容渲染完成后，延迟一小会儿发送高度，确保万无一失
+    setTimeout(postHeightMessage, 100); 
+}
+
+// 当窗口大小改变时，也重新发送高度
+window.addEventListener('resize', postHeightMessage);

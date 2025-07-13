@@ -1,15 +1,16 @@
 body {
-    background-color: #121212;
+    background-color: transparent; /* 关键！背景设为透明 */
     color: #e0e0e0;
     font-family: 'Noto Serif SC', serif;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    text-align: center;
+    font-size: 16px;
+}
+
+/* 移除容器的内外边距，让它完全贴合 iframe */
+.site-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px 0; /* 只保留上下一点内边距 */
 }
 
 .container {
