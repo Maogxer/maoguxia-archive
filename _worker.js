@@ -1,13 +1,28 @@
-// /_worker.js (最终版：获取所有详细记录，无 collapse)
+// /_worker.js (最终完美版：已加入精确的排除规则)
 
 // --- 配置区 ---
 const TARGET_DOMAIN = 'maoguxia.com';
 const YEARS = [2002, 2003, 2004, 2005, 2006, 2007];
-// ----------------
+
+// --- 最终排除关键字列表 ---
+// 基于您提供的链接分析得出的模式
+const EXCLUSION_KEYWORDS = [
+    '/build/',          // 排除建站工具残留
+    '/cpzs/',           // 排除产品展示模板
+    '/footer/',         // 排除通用页脚模板
+    '/magazine/',       // 排除杂志模板
+    '/member/',         // 排除会员登录模板
+    '/007/',            // 排除最主要的污染源 "007" 目录
+    'dlgt.htm',         // 排除特定的 htm 文件
+    'ciee.htm',         // 排除特定的 htm 文件
+    'gd_1.htm',         // 排除特定的 htm 文件
+    'gd_2.htm',         // 排除特定的 htm 文件
+    '/kepu/'            // 排除科普模板目录
+];
+// -----------------------------
 
 async function handleApiRequest() {
   const promises = YEARS.map(year => {
-    // *** 关键改动：确认 URL 中没有 &collapse=... 参数 ***
     const apiUrl = `https://web.archive.org/cdx/search/cdx?url=${TARGET_DOMAIN}/*&from=${year}&to=${year}&output=json&fl=timestamp,original&filter=statuscode:200`;
     return fetch(apiUrl, { headers: { 'User-Agent': 'Cloudflare-Worker-Proxy/1.0' } });
   });
@@ -21,9 +36,16 @@ async function handleApiRequest() {
     }
     const yearlyData = await Promise.all(responses.map(res => res.json()));
     const header = yearlyData.find(data => data.length > 0)?.[0] || ["timestamp", "original"];
-    const allRecords = yearlyData.flatMap(data => (data.length > 1 ? data.slice(1) : []));
+    let allRecords = yearlyData.flatMap(data => (data.length > 1 ? data.slice(1) : []));
     
-    // 按时间戳升序排序所有记录
+    // 执行过滤，移除所有包含排除关键词的记录
+    if (EXCLUSION_KEYWORDS.length > 0) {
+      allRecords = allRecords.filter(snapshot => {
+        const url = snapshot[1];
+        return !EXCLUSION_KEYWORDS.some(keyword => url.includes(keyword));
+      });
+    }
+    
     allRecords.sort((a, b) => a[0].localeCompare(b[0]));
     
     const finalJson = [header, ...allRecords];
