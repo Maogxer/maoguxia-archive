@@ -1,53 +1,98 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>时光回溯 | 猫骨匣</title>
-    <!-- 我们只加载一个我们自己控制的 CSS 文件 -->
-    <link rel="stylesheet" href="style.css">
-    <!-- 加载一个通用的中文字体 -->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,700" rel="stylesheet">
+
+    <!-- 加载所有模板的官方 CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- 我们自己的自定义样式，放在最后 -->
+    <link rel="stylesheet" href="assets/css/archive-custom.css">
 </head>
 <body>
+    <!-- 预加载动画 (来自模板) -->
+    <div class="preloader-area"><div class="preloader"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
 
-    <!-- 1. 页头结构 -->
-    <header class="site-header">
+    <!-- 头部区域 (使用官方 Bootstrap Navbar 结构) -->
+    <header class="header-top-area">
         <div class="container">
-            <div class="logo"><a href="https://maoguxia.com.cn">猫骨匣</a></div>
-            <nav class="main-menu">
-                <a href="https://maoguxia.com.cn">Home</a>
-                <a href="https://maoguxia.com.cn/#about">柳文扬简介</a>
-                <a href="https://maoguxia.com.cn/home">LWY’s Home</a>
-                <a href="https://maoguxia.com.cn/mgx">猫骨匣论坛</a>
-                <a href="#" class="active">历史上的猫骨匣</a>
-            </nav>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mainmenu">
+                        <nav class="navbar navbar-default">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="https://maoguxia.com.cn">猫骨匣</a>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="https://maoguxia.com.cn">Home</a></li>
+                                    <li><a href="https://maoguxia.com.cn/#about">柳文扬简介</a></li>
+                                    <li><a href="https://maoguxia.com.cn/home">LWY’s Home</a></li>
+                                    <li class="active"><a href="#">时光回溯</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <!-- 2. 我们的核心内容区 -->
-    <main class="main-content">
+    <!-- 我们的核心内容区 -->
+    <section id="archive-content" class="archive-area section-padding">
         <div class="container">
-            <h1 class="archive-title">历史上的猫骨匣</h1>
-            <h2 class="subtitle">猫骨匣 (maoguxia.com) | 2002 - 2007 详细存档</h2>
-            <div id="loading">正在通过云端挖掘记忆...</div>
-            <ul id="archive-list"></ul>
-            <div id="pagination-controls"></div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="archive-title">时光·回溯</h1>
+                    <h2 class="subtitle">猫骨匣 (maoguxia.com) | 2002 - 2007 详细存档</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div id="loading">正在通过云端挖掘记忆...</div>
+                    <ul id="archive-list"></ul>
+                    <div id="pagination-controls"></div>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <!-- 3. 页脚结构 -->
-    <footer class="site-footer">
+    <!-- 页脚区域 (使用官方 Bootstrap 结构) -->
+    <footer class="footer-area">
         <div class="container">
-            <p>© 2024 猫骨匣 | Archive data supported by Wayback Machine & Cloudflare</p>
-            <div class="footer-social">
-                <a href="#">f</a>
-                <a href="#">t</a>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>© 2024 猫骨匣 | Archive data supported by Wayback Machine & Cloudflare</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social-link">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook fb"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter tw"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- 我们只加载一个我们自己控制的 JS 文件 -->
-    <script src="script.js"></script>
+    <!-- 加载所有官方 JS 文件 (jQuery 必须在 bootstrap.min.js 之前) -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+
+    <!-- 我们自己的功能脚本，放在最后 -->
+    <script src="assets/js/archive-logic.js"></script>
 </body>
 </html>
