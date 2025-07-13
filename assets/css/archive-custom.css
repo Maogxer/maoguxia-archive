@@ -15,14 +15,9 @@ html, body {
     height: 100%; /* 步骤 1: 让 html 和 body 高度占满全屏 */
 }
 body {
-    padding-top: 72px !important; 
     display: flex; /* 步骤 2: 将 body 设为 Flex 容器 */
     flex-direction: column; /* 步骤 3: 让子元素垂直排列 */
 }
-.main-content {
-    flex-grow: 1; /* 步骤 4: 关键！让内容区自动伸展，填满剩余空间 */
-}
-
 
 /* 
  * ---------------------------------------------------
@@ -30,6 +25,7 @@ body {
  * ---------------------------------------------------
 */
 #archive-content {
+    flex-grow: 1;
     background-color: #f2f2f2;
     color: #333;
     padding-top: 100px;
