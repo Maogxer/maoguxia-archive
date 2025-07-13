@@ -77,3 +77,20 @@
     font-size: 1em;
 }
 #archive-content .hidden { display: none; }
+
+/* 
+ * ---------------------------------------------------
+ * --- 第三部分：这是本次修复的核心，移动端反向覆盖 ---
+ * ---------------------------------------------------
+*/
+@media (max-width: 767px) {
+    /* 
+     * 无条件地、强制地将我们的页头样式应用到移动端。
+     * 这会让 responsive.css 中的任何移动端规则都完全失效。
+    */
+    .header-top-area.menu-bg {
+        position: fixed !important;
+        background: #000 !important; /* 强制白色背景 */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    }
+}
