@@ -1,79 +1,83 @@
-/* style.css (最终版：已实现固定页头) */
+/* style.css (最终版：像素级对齐) */
 
-/* 基础样式 */
+/* --- 基础样式 --- */
 body {
     background-color: #1a1a1a;
     color: #ccc;
-    font-family: 'Noto Serif SC', sans-serif; /* 保持内容字体 */
+    /* 主内容区使用您喜欢的衬线字体 */
+    font-family: 'Noto Serif SC', sans-serif;
     margin: 0;
     line-height: 1.6;
-}
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 a { color: #888; text-decoration: none; transition: color 0.3s; }
 a:hover { color: #fff; }
 
-/* 
- * 这是最核心的改动：固定页头
-*/
+/* --- Universal Layout Fix --- */
+/* 关键修复 1: 将容器宽度与主站对齐 */
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px; /* Bootstrap 标准的左右内边距 */
+}
+
+/* --- Header Style Overhaul (The Core Fix) --- */
+/* 关键修复 2: 完全复刻主站页头样式 */
 .site-header {
-    /* 1. 固定位置 */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* 确保它在最上层 */
-    
-    /* 2. 外观样式 */
-    background-color: #000; /* 纯黑色背景 */
-    padding: 15px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* 加一个细微的阴影，更有质感 */
+    z-index: 1000;
+    background-color: #000;
+    padding: 25px 0; /* 精确的上下内边距 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-bottom: 1px solid #111; /* 一个更细微的边框 */
 }
 .site-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.logo { font-size: 1.5em; font-weight: 700; font-family: 'Montserrat', sans-serif; }
-.logo a { color: #fff; }
 
-.main-menu { display: flex; gap: 30px; }
-.main-menu a {
-    font-family: 'Montserrat', sans-serif; /* 使用和主站一致的无衬线字体 */
-    font-size: 14px;
+/* Logo 样式 */
+.logo a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px; /* 精确的字号 */
     font-weight: 700;
-    text-transform: uppercase; /* 字母大写，更具设计感 */
-    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
 }
-.main-menu a.active { color: #fff; }
 
+/* 导航菜单样式 */
+.main-menu { display: flex; gap: 40px; } /* 增加间距 */
+.main-menu a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; /* 精确的字号 */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 0;
+}
+.main-menu a.active {
+    color: #fff;
+    border-bottom: 2px solid #fff; /* 激活状态的高亮效果 */
+}
 
-/* 
- * 关键的第二步：为固定的头部留出空间 
- * 防止主要内容被遮挡
-*/
+/* --- Content Area Adjustment for Sticky Header --- */
+/* 关键修复 3: 为新的、更高的固定页头留出正确的空间 */
 .main-content {
-    padding-top: 120px; /* 这个值约等于页头高度 + 额外留白 */
+    padding-top: 130px; /* 必须留出足够的空间 */
     padding-bottom: 50px;
 }
 
+/* --- 我们项目原有的样式 (保持不变，但会继承新的字体) --- */
 .archive-title {
-    font-size: 4.5em;
-    font-weight: 700;
-    text-align: center;
-    color: #fff;
-    letter-spacing: 0.1em;
-    margin-bottom: 60px;
+    font-size: 4.5em; font-weight: 700; text-align: center;
+    color: #fff; letter-spacing: 0.1em; margin-bottom: 60px;
     -webkit-box-reflect: below -15px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
 }
-
 .subtitle { font-size: 1.2em; text-align: center; color: #888; margin-top: -40px; margin-bottom: 50px; }
 #loading { text-align: center; padding: 40px; }
-
-/* 列表和分页样式 (保持不变) */
 #archive-list { list-style: none; padding: 0; }
 #archive-list li { margin-bottom: 10px; }
 #archive-list a {
@@ -81,7 +85,7 @@ a:hover { color: #fff; }
     border-left: 3px solid #444; color: #999; text-decoration: none !important;
     transition: all 0.3s; white-space: nowrap; overflow: hidden;
     text-overflow: ellipsis; text-align: left;
-    font-family: 'Roboto', sans-serif; /* 为列表链接使用另一个清晰的字体 */
+    font-family: 'Roboto', sans-serif;
 }
 #archive-list a:hover { background-color: #333; border-left-color: #aaa; color: #fff; }
 #pagination-controls { margin-top: 40px; display: flex; justify-content: center; align-items: center; gap: 8px; }
@@ -93,14 +97,8 @@ a:hover { color: #fff; }
 
 /* 页脚样式 (保持不变) */
 .site-footer {
-    padding: 30px 0;
-    border-top: 1px solid #333;
-    color: #555;
-    font-size: 0.9em;
+    padding: 30px 0; border-top: 1px solid #333;
+    color: #555; font-size: 0.9em;
 }
-.site-footer .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.site-footer .container { display: flex; justify-content: space-between; align-items: center; }
 .footer-social { display: flex; gap: 15px; }
