@@ -1,12 +1,12 @@
-// /_worker.js (最终完美版 V3：已修复错误处理格式)
+// /_worker.js (最终完美版 V4：已修复代理重定向的 bug)
 
-// --- API 代理部分的配置 ---
+// --- API 代理部分的配置 (保持不变) ---
 const API_TARGET_DOMAIN = 'maoguxia.com';
 const API_YEARS = [2002, 2003, 2004, 2005, 2006, 2007];
 const API_EXCLUSION_KEYWORDS = [ '/build/', '/cpzs/', '/footer/', '/magazine/', '/member/', '/007/', 'dlgt.htm', 'ciee.htm', 'gd_1.htm', 'gd_2.htm', '/kepu/' ];
 
 /**
- * 这是一个辅助类，用于重写 HTML 中的链接属性
+ * 辅助类 AttributeRewriter (保持不变)
  */
 class AttributeRewriter {
   constructor(attributeName) { this.attributeName = attributeName; }
@@ -19,14 +19,19 @@ class AttributeRewriter {
 }
 
 /**
- * 处理对单个快照页面的代理请求
+ * 处理对单个快照页面的代理请求 (已修复)
  */
 async function handleSnapshotRequest(request) {
   const url = new URL(request.url);
   const waybackPath = url.pathname.substring('/snapshot'.length);
-  const targetUrl = `https://web.archive.org${waybackPath}`;
+  
+  // *** 这是唯一的、关键的修复 ***
+  // 在路径前加上了缺失的 /web/，确保构造出正确的最终 URL
+  const targetUrl = `https://web.archive.org/web${waybackPath}`;
+
   const response = await fetch(targetUrl, request);
   const contentType = response.headers.get('Content-Type') || '';
+
   if (contentType.includes('text/html')) {
     const rewriter = new HTMLRewriter()
       .on('a', new AttributeRewriter('href'))
@@ -40,7 +45,7 @@ async function handleSnapshotRequest(request) {
 }
 
 /**
- * 处理对存档列表 API 的请求 (包含排除规则)
+ * 处理对存档列表 API 的请求 (保持不变)
  */
 async function handleApiRequest() {
   const promises = API_YEARS.map(year => {
@@ -63,7 +68,7 @@ async function handleApiRequest() {
 }
 
 /**
- * 主入口：路由分发
+ * 主入口：路由分发 (保持不变)
  */
 export default {
   async fetch(request, env, context) {
@@ -78,9 +83,6 @@ export default {
       return await env.ASSETS.fetch(request);
     } catch (error) {
       console.error('Worker 发生异常:', error.stack);
-      
-      // *** 这是唯一的、关键的修复 ***
-      // 即使出错，也返回一个标准的 JSON 错误对象
       return new Response(JSON.stringify({ error: `Worker 内部错误: ${error.message}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
