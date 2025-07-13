@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史上的猫骨匣</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="title-glow">历史上的猫骨匣</h1>
+            <h2 class="subtitle">猫骨匣 (maoguxia.com) | 2002 - 2007</h2>
+        </header>
+        
+        <main>
+            <div id="loading">正在通过云端挖掘记忆... (首次加载可能需要一些时间)</div>
+            <ul id="archive-list"></ul>
+            <div id="pagination-controls"></div>
+        </main>
+
+        <footer>
+            <p>由 Cloudflare & Wayback Machine 提供支持</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
