@@ -1,4 +1,4 @@
-// /_worker.js (最终完美版：全能代理)
+// /_worker.js (最终完美版 V3：已修复错误处理格式)
 
 // --- API 代理部分的配置 ---
 const API_TARGET_DOMAIN = 'maoguxia.com';
@@ -9,13 +9,10 @@ const API_EXCLUSION_KEYWORDS = [ '/build/', '/cpzs/', '/footer/', '/magazine/', 
  * 这是一个辅助类，用于重写 HTML 中的链接属性
  */
 class AttributeRewriter {
-  constructor(attributeName) {
-    this.attributeName = attributeName;
-  }
+  constructor(attributeName) { this.attributeName = attributeName; }
   element(element) {
     const attribute = element.getAttribute(this.attributeName);
     if (attribute && attribute.startsWith('/web/')) {
-      // 将 /web/... 替换为 /snapshot/web/...
       element.setAttribute(this.attributeName, `/snapshot${attribute}`);
     }
   }
@@ -26,14 +23,10 @@ class AttributeRewriter {
  */
 async function handleSnapshotRequest(request) {
   const url = new URL(request.url);
-  // 从请求路径中提取出真正的 Wayback Machine 路径
   const waybackPath = url.pathname.substring('/snapshot'.length);
   const targetUrl = `https://web.archive.org${waybackPath}`;
-
   const response = await fetch(targetUrl, request);
   const contentType = response.headers.get('Content-Type') || '';
-
-  // 只对 HTML 文件进行内容重写
   if (contentType.includes('text/html')) {
     const rewriter = new HTMLRewriter()
       .on('a', new AttributeRewriter('href'))
@@ -41,19 +34,15 @@ async function handleSnapshotRequest(request) {
       .on('img', new AttributeRewriter('src'))
       .on('iframe', new AttributeRewriter('src'))
       .on('script', new AttributeRewriter('src'));
-      
     return rewriter.transform(response);
   }
-
-  // 对于 CSS, JS, 图片等其他资源，直接返回，不做修改
   return response;
 }
 
 /**
- * 处理对存档列表 API 的请求
+ * 处理对存档列表 API 的请求 (包含排除规则)
  */
 async function handleApiRequest() {
-  // ... 此函数与上一版完全相同，无需修改 ...
   const promises = API_YEARS.map(year => {
     const apiUrl = `https://web.archive.org/cdx/search/cdx?url=${API_TARGET_DOMAIN}/*&from=${year}&to=${year}&output=json&fl=timestamp,original&filter=statuscode:200`;
     return fetch(apiUrl, { headers: { 'User-Agent': 'Cloudflare-Worker-Proxy/1.0' } });
@@ -80,22 +69,22 @@ export default {
   async fetch(request, env, context) {
     const url = new URL(request.url);
     try {
-      // 路由 1: 如果是 API 请求
       if (url.pathname === '/api/records') {
         return await handleApiRequest();
       }
-      
-      // 路由 2: 如果是快照页面代理请求
       if (url.pathname.startsWith('/snapshot/')) {
         return await handleSnapshotRequest(request);
       }
-      
-      // 路由 3: 其他所有请求（如首页 index.html），则提供静态文件
       return await env.ASSETS.fetch(request);
-      
     } catch (error) {
       console.error('Worker 发生异常:', error.stack);
-      return new Response(`Worker 内部错误: ${error.message}`, { status: 500 });
+      
+      // *** 这是唯一的、关键的修复 ***
+      // 即使出错，也返回一个标准的 JSON 错误对象
+      return new Response(JSON.stringify({ error: `Worker 内部错误: ${error.message}` }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
   },
 };
