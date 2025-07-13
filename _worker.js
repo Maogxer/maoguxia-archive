@@ -1,7 +1,7 @@
 // /_worker.js (已修复 context.next 错误)
 
 // --- 在这里修改你要查询的网站 ---
-const TARGET_DOMAIN = 'sina.com.cn';
+const TARGET_DOMAIN = 'maoguxia.com';
 // -----------------------------------
 
 async function handleApiRequest(request) {
